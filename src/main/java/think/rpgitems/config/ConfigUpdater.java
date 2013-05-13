@@ -16,21 +16,22 @@
  */
 package think.rpgitems.config;
 
-import java.util.HashMap;
-
 import org.bukkit.configuration.ConfigurationSection;
-
 import think.rpgitems.Plugin;
+
+import java.util.HashMap;
 
 public class ConfigUpdater {
 
-    final static String CONFIG_VERSION = "0.3";
+    final static String CONFIG_VERSION = "0.5";
 
     static HashMap<String, Updater> updates;
     static {
         updates = new HashMap<String, Updater>();
         updates.put("0.1", new Update01To02());
         updates.put("0.2", new Update02To03());
+        updates.put("0.3", new Update03To04());
+        updates.put("0.4", new Update04To05());
     }
 
     public static void updateConfig(ConfigurationSection conf) {
@@ -53,6 +54,9 @@ public class ConfigUpdater {
                 }
                 if (!conf.contains("support.worldguard")) {
                     conf.set("support.worldguard", false);
+                }
+                if (!conf.contains("support.enchantments")) {
+                    conf.set("support.enchantments", false);
                 }
                 conf.set("version", "0.1");
                 Plugin.plugin.saveConfig();
